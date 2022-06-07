@@ -1,0 +1,166 @@
+﻿@using GreenBNTU.Design.Models
+@model ICollection<Location>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта раздельного сбора отходов</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+
+<body>
+    <header id="main-header">
+        <a href="https://bntu.by/" class="logo"></a>
+        <a href="/LoginWindow" class="admin"></a>
+    </header>
+
+    
+
+    <section id="showcase">
+        <div class="container">
+            <h1>
+                Карта раздельного сбора отходов
+            </h1>
+        </div>
+    </section>
+
+    
+
+    <div class="container">
+
+        <nav id="navbar" class="fixed">
+            <div class="container">
+                <ul>
+                    <li><a href="/Home/AboutLogged">О нас</a></li>
+                    <li><a href="/Projecthtml/ProjectListLogged">Проекты</a></li>
+                    <li><a href="/GoogleMaps/GoogleMapLogged">Карта раздельного сбора отходов</a></li>
+                    <li><a href="/AdminPanel/AdminPanel">Редактировать информацию</a></li>
+                </ul>
+            </div>
+        </nav>
+        <section id="markers">
+            
+            <table>
+                
+                <tbody>
+                    <tr>
+                        <td class="colname">
+                            <img src="/images/marker_paper.svg" alt="">
+                        </td>
+                        <td>Бумага</td>
+                    </tr>
+                    <tr>
+                        <td class="colname">
+                            <img src="/images/marker_glass.svg" alt="">
+                        </td>
+                        <td>
+                            Стекло
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="colname">
+                            <img src="/images/marker_plastic.svg" alt="">
+                        </td>
+                        <td>
+                            Пластик
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="colname">
+                            <img src="/images/marker_batteries.svg" alt="">
+                        </td>
+                        <td>
+                            Батарейки
+                        </td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </section>
+    
+        <div id="map">
+        <script>
+            function initMap() 
+            {
+              var myLatLng = { lat: 53.92184103346405, lng: 27.593457268054234 };
+
+                // Create a map object and specify the DOM element
+                // for display.
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    center: myLatLng,
+                    zoom: 14
+                });
+
+                function addInfoWindow(marker, message) {
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: message
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infoWindow.open(map, marker);
+                    });
+                }
+                
+
+                // Create a marker and set its position.
+                @foreach(var item in Model){
+                    var geoLat = item.GeoLat.ToString().Replace(",", ".");
+                    var geoLong = item.GeoLong.ToString().Replace(",", ".");
+                    var mapMarker = item.RecObject.Color.ToString();
+                    <text>
+                          var marker = new google.maps.Marker({
+                              map: map,
+                              position: { lat: @geoLat, lng: @geoLong},
+                              icon: "@item.RecObject.Color"
+                          });
+                                              
+                          addInfoWindow(marker, "<div class='locationInfo'><h3>@item.Address</h3><div><p>@item.Description</p></div></div>");
+                          
+                    </text>
+
+
+                }
+                
+                marker.addListener("click", () => {
+                            infowindow.open({
+                              anchor: marker,
+                              map,
+                              shouldFocus: false,
+                            });
+                          });
+
+                    
+            }
+            window.initMap = initMap;
+            
+
+                        
+        </script>    
+    </div>
+
+    
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAnE5PSS-8eCBd5ynPJhZ3ovRDsuJTXNo&callback=initMap">
+        </script>
+            
+
+    </div>
+
+    <div ng-app="MyApp" ng-controller="MyController">
+        <div id="dvMap" style="width: 500px; height: 400px">
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        <p>Copyright &copy;2022 My Website</p>
+    </footer>
+    
+</body>
+</html>

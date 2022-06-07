@@ -1,0 +1,138 @@
+﻿@model GreenBNTU.Design.Models.Project
+
+@{
+    ViewData["Title"] = "EditForm";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить проект</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+
+<body>
+    <header id="main-header">
+        <a href="https://bntu.by/" class="logo"></a>
+        <a href="/LoginWindow" class="admin"></a>
+    </header>
+
+    
+
+    <section id="showcase">
+        <div class="container">
+            <h1>
+                Изменить проект
+            </h1>
+        </div>
+    </section>
+
+    
+
+    <div class="container">
+
+        <nav id="navbar" class="fixed">
+            <div class="container">
+                <ul>
+                    <li><a href="/Home/AboutLogged">О нас</a></li>
+                    <li><a href="/Projecthtml/ProjectListLogged">Проекты</a></li>
+                    <li><a href="/GoogleMaps/GoogleMapLogged">Карта раздельного сбора отходов</a></li>
+                    <li><a href="/AdminPanel/AdminPanel">Редактировать информацию</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    @using (Html.BeginForm("EditProject", "AdminPanel")){       
+        @Html.AntiForgeryToken()
+    
+    
+                    
+      
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                
+          
+                <div class="col-md-10">
+                        @Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control"} })
+                    @*@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })*@
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="projname"><b>Название проекта</b></label>
+          
+                <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+        
+          
+      
+            <div class="form-group">
+                <label for="projname"><b>Описание</b></label>
+          
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Desc, new { @required  = "required", htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="projname"><b>Срок подачи заявки</b></label>
+          
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SignUpTill, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.SignUpTill, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>       
+
+
+            <div class="form-group">
+                <label for="projname"><b>Ссылка</b></label>
+          
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+          
+            <div class="editordelete">
+                <button type="submit" value="Create">Сохранить</button>
+            </div>
+            
+          
+        </div>
+      
+    }
+   
+
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+    </div>
+    
+    <footer id="main-footer">
+        <p>Copyright &copy;2022 My Website</p>
+    </footer>
+    
+</body>
+</html>

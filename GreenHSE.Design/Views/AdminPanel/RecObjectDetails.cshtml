@@ -1,0 +1,84 @@
+﻿@model GreenBNTU.Design.Models.RecyclableObject
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+
+<body>
+    <header id="main-header">
+        <a href="https://bntu.by/" class="logo"></a>
+        <a href="/LoginWindow" class="admin"></a>
+    </header>
+
+    
+
+    <section id="showcase">
+        <div class="container">
+            <h1>
+                Панель администратора
+            </h1>
+        </div>
+    </section>
+
+    
+
+    <div class="container">
+
+        <nav id="navbar" class="fixed">
+            <div class="container">
+                <ul>
+                    <li><a href="/Home/AboutLogged">О нас</a></li>
+                    <li><a href="/Projecthtml/ProjectListLogged">Проекты</a></li>
+                    <li><a href="/GoogleMaps/GoogleMapLogged">Карта раздельного сбора отходов</a></li>
+                    <li><a href="/AdminPanel/AdminPanel">Редактировать информацию</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <h4>@Model.Name</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                <p>@Html.DisplayNameFor(model => model.Name)</p>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                <p>@Html.DisplayNameFor(model => model.Color)</p>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+
+            
+        </dl>
+
+        <p class="editordelete">
+            <button>
+                @Html.ActionLink("Изменить", "EditROForm", new { id = Model.Id})
+            </button>
+            <button>
+                @Html.ActionLink("Удалить", "DeleteROForm", new { id = Model.Id})
+            </button>        
+        </p>
+
+    </div>
+    
+    <footer id="main-footer">
+        <p>Copyright &copy;2022 My Website</p>
+    </footer>
+    
+</body>
+</html>
+

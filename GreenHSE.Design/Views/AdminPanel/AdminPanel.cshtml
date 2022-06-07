@@ -1,0 +1,231 @@
+﻿@using GreenBNTU.Design.Models
+@using GreenBNTU.Design.Repository
+@model Tuple<ICollection<Location>, Location, RecyclableObject, Admin, ICollection<RecyclableObject>, ICollection<Project>, ICollection<Admin>>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+
+<body>
+    <header id="main-header">
+        <a href="https://bntu.by/" class="logo"></a>
+        <a href="/LoginWindow" class="admin"></a>
+    </header>
+
+    
+
+    <section id="showcase">
+        <div class="container">
+            <h1>
+                Панель администратора
+            </h1>
+        </div>
+    </section>
+
+    
+
+    <div class="container">
+
+        <nav id="navbar" class="fixed">
+            <div class="container">
+                <ul>
+                    <li><a href="/Home/AboutLogged">О нас</a></li>
+                    <li><a href="/Projecthtml/ProjectListLogged">Проекты</a></li>
+                    <li><a href="/GoogleMaps/GoogleMapLogged">Карта раздельного сбора отходов</a></li>
+                    <li><a href="/AdminPanel/AdminPanel">Редактировать информацию</a></li>
+                </ul>
+            </div>
+        </nav>
+        <section id="main">
+            <script>
+                function openSubTab(evt, objName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("subtablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(objName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+
+                function openCity(evt, cityName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks, subtype;
+
+                    subtype = document.getElementsByClassName("subtype");
+                    for (i = 0; i < subtype.length; i++) {
+                        subtype[i].className = subtype[i].className.replace(" active", "");
+                    }
+                    
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("subtabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                        
+                    subtype = document.getElementsByClassName("subtype");
+                    for (i = 0; i < subtype.length; i++) {
+                        subtype[i].style.display = "block";
+                    }
+                    
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+
+                
+                    
+
+            </script>
+            
+                <div class="tab">
+                    <button class="tablinks" onclick="openCity(event, 'Добавить')">Добавить данные</button>
+                    <button class="tablinks" onclick="openCity(event, 'Изменить')">Изменить или удалить данные</button>
+                  </div>
+
+            
+              
+                  <div id='Добавить' class="subtabcontent">
+
+                      <div class="subtab">
+                          <form style="display: inline" action="/AdminPanel/CreateProjectForm" method="get" target="_blank">
+                            <button class="subtablinks subtype">Проекты</button>
+                          </form>
+
+                        <form style="display: inline" action="/AdminPanel/CreateLocationForm" method="get" target="_blank">
+                            <button class="subtablinks subtype">Локации</button>
+                        </form>
+                        <form style="display: inline" action="/AdminPanel/CreateRecObjectForm" method="get" target="_blank">
+                            <button class="subtablinks subtype">Типы отходов</button>
+                        </form>
+                        <form style="display: inline" action="/AdminPanel/CreateAdminForm" method="get" target="_blank">
+                            <button class="subtablinks subtype">Администраторы</button>
+                        </form>
+                        
+                      </div>
+                      <!-- Tab content -->
+                      
+              
+                      <div id="Локации Добавить" class="tabcontent">                        
+                       
+                               
+                      </div>
+              
+                      <div id="Типы отходов Добавить" class="tabcontent">
+                        <h3>Добавить тип отходов:</h3>
+                        <form action="/AdminPanel/AddNewRecObject">                       
+                        
+                        </form>
+                      </div>
+
+                      <div id="Администраторы Добавить" class="tabcontent">
+                        <h3>Добавить администратора:</h3>
+                        <form action="/AdminPanel/AddNewAdmin">
+                                                
+                        </form>
+                      </div>
+
+                  </div>
+
+                  <div id='Изменить' class="subtabcontent">
+
+                      <div class="subtab">
+                          
+
+                        <button class="subtablinks subtype" onclick="openSubTab(event, 'Проекты Изменить')">Проекты</button>
+                        <button class="subtablinks subtype" onclick="openSubTab(event, 'Локации Изменить')">Локации</button>
+                        <button class="subtablinks subtype" onclick="openSubTab(event, 'Типы отходов Изменить')">Типы отходов</button>
+                        <button class="subtablinks subtype" onclick="openSubTab(event, 'Администраторы Изменить')">Администраторы</button>
+                      </div>
+                      <!-- Tab content -->
+                      <div id="Проекты Изменить" class="tabcontent change">
+                        <h3>Изменить проект:</h3>
+                            @foreach (var project in Model.Item6)
+                            {
+                                <a  href="/AdminPanel/ProjectDetails?id=@project.Id">@project.Name</a>
+                                <p></p>
+                                
+                            }
+                        </div>
+              
+                      <div id="Локации Изменить" class="tabcontent change">
+                        <h3>Изменить пункт сбора отходов:</h3>
+                             @foreach (var location in Model.Item1)
+                                {
+                                    <a href="/AdminPanel/LocationDetails?id=@location.Id">@location.Address</a>
+                                    <p></p>
+                                }
+                              
+                        </div>
+              
+                      <div id="Типы отходов Изменить" class="tabcontent change">
+                        <h3>Изменить тип отходов:</h3>
+                        <table>
+                        @foreach (var ro in Model.Item5)
+                            {
+                                <tr>
+                                    <td class="colname">
+                                        <img src="@ro.Color" alt="">
+                                    </td>
+                                    <td>
+                                        <a href="/AdminPanel/RecObjectDetails?id=@ro.Id">@ro.Name</a>
+                                    </td>
+                        
+                                </tr>
+                            }
+                        </table>
+                
+                      </div>
+
+                      <div id="Администраторы Изменить" class="tabcontent change">
+                        <h3>Изменить администратора:</h3>
+                        @foreach (var admin in Model.Item7)
+                            {
+                                <a href="/AdminPanel/AdminDetails?id=@admin.Id">@admin.Name</a>
+                                <p></p>
+                            }
+                
+                      </div>
+
+                  </div>
+
+
+                  
+
+
+        </section>
+    
+        
+    </div>
+
+    
+    <footer id="main-footer">
+        <p>Copyright &copy;2022 My Website</p>
+    </footer>
+    
+</body>
+</html>

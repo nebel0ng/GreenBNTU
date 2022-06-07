@@ -1,0 +1,145 @@
+﻿@model GreenBNTU.Design.Models.Location
+
+@{
+    ViewData["Title"] = "EditForm";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить пункт</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+</head>
+
+<body>
+    <header id="main-header">
+        <a href="https://bntu.by/" class="logo"></a>
+        <a href="/LoginWindow" class="admin"></a>
+    </header>
+
+    
+
+    <section id="showcase">
+        <div class="container">
+            <h1>
+                Изменить пункт сбора отходов
+            </h1>
+        </div>
+    </section>
+
+    
+
+    <div class="container">
+
+        <nav id="navbar" class="fixed">
+            <div class="container">
+                <ul>
+                    <li><a href="/Home/AboutLogged">О нас</a></li>
+                    <li><a href="/Projecthtml/ProjectListLogged">Проекты</a></li>
+                    <li><a href="/GoogleMaps/GoogleMapLogged">Карта раздельного сбора отходов</a></li>
+                    <li><a href="/AdminPanel/AdminPanel">Редактировать информацию</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    @using (Html.BeginForm("EditLocation", "AdminPanel")){       
+        @Html.AntiForgeryToken()
+    
+    
+                    
+      
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                
+          
+                <div class="col-md-10">
+                        @Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control"} })
+                    @*@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })*@
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="projname"><b>Адрес пункта</b></label>
+          
+                <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+        
+          
+      
+            <div class="form-group">
+                <label for="projname"><b>Описание</b></label>
+          
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @required  = "required", htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="projname"><b>Широта</b></label>
+          
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GeoLat, new { htmlAttributes = new { @type = "number", @min = "-90", @max= "90", @step="0.00001", @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.GeoLat, "", new { @class = "text-danger" })
+                </div>
+            </div>       
+
+
+            <div class="form-group">
+                <label for="projname"><b>Долгота</b></label>
+          
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GeoLong, new { htmlAttributes = new { @type = "number", @min = "-180", @max="180", @step="0.00001", @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.GeoLong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="projname"><b>Тип отходов</b></label>
+          
+                <div class="col-md-10">
+                        @Html.EditorFor(model => model.RecObject.Name, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+                    @Html.ValidationMessageFor(model => model.RecObject.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+          
+      
+            <div class="editordelete">
+                <button type="submit" value="Create">Сохранить</button>
+            </div>
+          
+        </div>
+      
+    }
+   
+
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+    </div>
+    
+    <footer id="main-footer">
+        <p>Copyright &copy;2022 My Website</p>
+    </footer>
+    
+</body>
+</html>

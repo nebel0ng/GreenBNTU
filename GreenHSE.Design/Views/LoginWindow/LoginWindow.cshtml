@@ -1,0 +1,63 @@
+﻿@using GreenBNTU.Design.Models
+@model Admin
+
+<!DOCTYPE html>
+@Html.AntiForgeryToken()
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+</head>
+    
+
+<body>
+    <link rel="stylesheet" href="/css/authorization.css">
+<div class="form-cont">
+
+    <form action="/LoginWindow/Login">
+    @*<form>*@
+    @using (Html.BeginForm("LoginWindow", "Login", FormMethod.Get)){        
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <a href="javascript:javascript:history.go(-1)"><img src="/images/cross.png" class="cross"></a>
+        <div class="imgcontainer">
+          <img src="/images/logo_bntu_2021_green.svg" alt="Avatar" class="avatar">
+          
+          
+        </div>
+      
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          
+          <p>
+              @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            @*<input type="text" placeholder="Enter Username" name="uname" required>*@
+          </p>
+          
+      
+          <label for="psw"><b>Password</b></label>
+          <p>
+              @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @required  = "required"} })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            @*<input type="password" placeholder="Enter Password" name="psw" required>*@
+          </p>
+          
+      
+          <button type="submit" value="Create">Login</button>
+          
+        </div>
+      
+        })
+      </form>
+</div>
+
+</body>
+
+
+</html>
+
+
+
