@@ -1,4 +1,4 @@
-﻿using GreenBNTU.Design.Models;
+using GreenBNTU.Design.Models;
 using GreenBNTU.Design.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,11 +24,6 @@ namespace GreenBNTU.Design.htmlControllers
         public ViewResult AdminPanel()
         {
             
-            //dynamic myModel = new ExpandoObject();
-            //myModel.Projects = _allProjects;
-            //myModel.Locations = _allLocations;
-            //myModel.RecObjects = _allRecObjects;
-            //myModel.Admins = _allAdmins;
             var recObjects = _allRecObjects.GetAllRecObjects();
             var projects = _allProjects.GetAllProjects();
             var admins = _allAdmins.GetAllAdmins();
@@ -342,54 +337,7 @@ namespace GreenBNTU.Design.htmlControllers
         }
 
 
-        //public ViewResult AddNewLocation(Location location)
-        //{
-        //    var contextOptions = new DbContextOptions<Context>();
-        //    var context = new Context(contextOptions);
-        //    var newLocation = new Location
-        //    {
-        //        Address = location.Address,
-        //        Description = location.Description,
-        //        RecObject = location.RecObject,
-        //        GeoLat = location.GeoLat,
-        //        GeoLong = location.GeoLong
-        //    };
-        //    context.Locations.Add(newLocation);
-        //    context.SaveChanges();
-
-        //    return View("AdminPanel");
-        //}
-
-        public ViewResult AddNewRecObject(RecyclableObject recObject)
-        {
-            var contextOptions = new DbContextOptions<Context>();
-            var context = new Context(contextOptions);
-            var newRecObject = new RecyclableObject
-            {
-                Name = recObject.Name,
-                Color = recObject.Color
-            };
-            context.RecObjects.Add(newRecObject);
-            context.SaveChanges();
-
-            return View("AdminPanel");
-        }
-
-        public ViewResult AddNewAdmin(Admin admin)
-        {
-            var contextOptions = new DbContextOptions<Context>();
-            var context = new Context(contextOptions);
-            var newAdmin = new Admin
-            {
-                Name = admin.Name,
-                Login = admin.Login,
-                Password = admin.Password
-            };
-            context.Admins.Add(newAdmin);
-            context.SaveChanges();
-
-            return View("AdminPanel");
-        }
+        
 
     }
 }
